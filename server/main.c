@@ -6,11 +6,17 @@
 #include <time.h>
 int app();
 
-void send_notification_to_all_clients (char *argv[])
+struct arg_struct {
+    char** argv;
+    int number;
+};
+
+void *send_notification_to_all_clients (void* arguments)
 {
+  struct arg_struct *args = arguments;
   zsock_t *notification_socket = zsock_new(ZMQ_PUB);
-  zsock_bind(notification_socket, "tcp://127.0.0.1:%s", argv[1]);
-  printf("Server listening on tcp://*:%s", argv[1]);
+  zsock_bind(notification_socket, "tcp://127.0.0.1:%s", args->argv[1]);
+  printf("Server listening on tcp://*:%s", args->argv[1]);
 
   while (!zsys_interrupted) {
     char message[1024] = "test\n";
@@ -18,6 +24,7 @@ void send_notification_to_all_clients (char *argv[])
     sleep(2);   
   }
   zsock_destroy(&notification_socket);
+  return NULL;
 }
 
 int main(int argc, char *argv[])
@@ -28,10 +35,12 @@ int main(int argc, char *argv[])
   }
 
   pthread_t notifications;
-  pthread_create (&notifications, NULL, &send_notification_to_all_clients, argv);
+  struct arg_struct arguments;
+  arguments.argv = argv;
+  arguments.number = 7;
+  pthread_create (&notifications, NULL, send_notification_to_all_clients, (void *) &arguments);
   app(argv);
   pthread_join (notifications, NULL);
-
   return 0;
 }
 
