@@ -20,7 +20,7 @@ int subscribe_to_notifications(char *argv[]){
 int main(int argc, char *argv[])
 {
   if (argc < 2) {
-    printf("Port number and channel are mandatory\n");
+    printf("[Port number]\n");
     return 0;
   }
   pthread_t notifications;
