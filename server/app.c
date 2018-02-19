@@ -1,9 +1,9 @@
-#include <czmq.h>
+#include "server.h"
 
-int app(char *argv[])
+int app(char *rep_port)
 {
   zsock_t *router = zsock_new(ZMQ_ROUTER);
-  zsock_bind(router, "tcp://*:%s", argv[2]);
+  zsock_bind(router, "tcp://*:%s", rep_port);
 
   while (!zsys_interrupted) {
     zmsg_t *message = zmsg_recv(router);
