@@ -12,6 +12,7 @@
 
 #define PUB_PORT "12345"
 #define REP_PORT "4242"
+#define MAP_SIZE 5
 
 typedef struct {
     char    *pub_port;
@@ -21,10 +22,12 @@ typedef struct {
 typedef struct {
     char    *rep_port;
     char    *pub_port;
+    int     size;
 }           Options;
 
 int app(char *rep_port);
 void *send_notification_to_all_clients (Arguments *args);
 Options argument_parsing(int argc, char **argv);
+char **build_map();
 
 #endif

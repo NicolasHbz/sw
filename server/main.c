@@ -3,6 +3,8 @@
 int main(int argc, char *argv[])
 {
   Options options = argument_parsing(argc, argv);
+  char **map = build_map();
+  
   Arguments arguments;
   arguments.pub_port = options.pub_port;
   pthread_t notifications;

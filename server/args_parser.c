@@ -9,13 +9,15 @@ Options argument_parsing(int argc, char **argv)
   Options           options;
   struct option     long_opt[] =
   {
-    {"help",          no_argument,       NULL, 'h'},
-    {"pub-port",      required_argument, NULL, 'p'},
-    {"rep-port",      required_argument, NULL, 'r'},
-    {NULL,            0,                 NULL,  0 }
+    {"help",        no_argument,       NULL, 'h'},
+    {"pub-port",    required_argument, NULL, 'p'},
+    {"rep-port",    required_argument, NULL, 'r'},
+    {"size",        required_argument, NULL, 's'},
+    {NULL,          0,                 NULL,  0 }
   };
   options.pub_port = PUB_PORT;
   options.rep_port = REP_PORT;
+  options.size = MAP_SIZE;
 
    while((c = getopt_long(argc, argv, short_opt, long_opt, NULL)) != -1)
    {
