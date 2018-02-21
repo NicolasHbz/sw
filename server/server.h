@@ -9,6 +9,9 @@
 #include <pthread.h>
 #include <time.h>
 #include <getopt.h>
+#include <jansson.h>
+
+#include "notification.h"
 
 #define PUB_PORT "12345"
 #define REP_PORT "4242"
@@ -17,6 +20,7 @@
 typedef struct {
     char    *pub_port;
     char    *rep_port;
+    int     size;
 }           Arguments;
 
 typedef struct {
@@ -25,9 +29,8 @@ typedef struct {
     int     size;
 }           Options;
 
-int app(char *rep_port);
+int app(Arguments *arguments);
 void *send_notification_to_all_clients (Arguments *args);
 Options argument_parsing(int argc, char **argv);
-char **build_map();
 
 #endif

@@ -24,15 +24,18 @@ Options argument_parsing(int argc, char **argv)
       switch(c)
       {
         case 'p':
-          printf("publication port: \"%s\"\n", optarg);
-          options.pub_port = strdup(optarg);
           options.pub_port = optarg;
+          printf("publication port: \"%s\"\n", options.pub_port);
         break;
 
         case 'r':
-          printf("rep port: \"%s\"\n", optarg);
-          options.rep_port = strdup(optarg);
           options.rep_port = optarg;
+          printf("rep port: \"%s\"\n", options.rep_port);
+        break;
+
+        case 's':
+          options.size = atoi(optarg);
+          printf("map size: \"%d\"\n", options.size);
         break;
 
         case 'h':
@@ -54,7 +57,5 @@ Options argument_parsing(int argc, char **argv)
         return options;
       }
    }
-    printf("Response port on tcp://*:%s\n", options.rep_port);
-    printf("Publication port on tcp://*:%s\n", options.pub_port);
     return options;
 }
