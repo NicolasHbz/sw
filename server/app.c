@@ -1,5 +1,11 @@
 #include "server.h"
 
+// static const Command    orders_command[] =
+// {
+//     {"test|", test},
+//     {NULL, NULL}
+// };
+
 int app(Arguments *args)
 {
   zsock_t *router = zsock_new(ZMQ_ROUTER);
@@ -12,15 +18,19 @@ int app(Arguments *args)
     zframe_t *empty = zmsg_pop(message);
     zframe_t *content = zmsg_pop(message);
 
+    char *cpy = get_command(content);
+
+    zframe_t *caca = zframe_from (cpy);
+
     zmsg_destroy(&message);
-    printf("Content of message is : %s\n", zframe_strdup(content));
+    printf("Your identity  is : %s\n", cpy);
     sleep(1);
 
     zmsg_t *response = zmsg_new();
 
     zmsg_prepend(response, &identity);
     zmsg_append(response, &empty);
-    zmsg_append(response, &content);
+    zmsg_append(response, &caca);
 
     zmsg_send(&response, router);
     zmsg_destroy(&response);

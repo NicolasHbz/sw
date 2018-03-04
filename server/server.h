@@ -29,8 +29,15 @@ typedef struct {
     int     size;
 }           Options;
 
+typedef struct
+{
+  char      *command;
+  void      (*func)();
+}           Command;
+
 int app(Arguments *arguments);
 void *send_notification_to_all_clients (Arguments *args);
 Options argument_parsing(int argc, char **argv);
+char *get_command(zframe_t *input);
 
 #endif

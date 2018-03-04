@@ -1,6 +1,6 @@
 #include "server.h"
 
-Options argument_parsing(int argc, char **argv)
+Options             argument_parsing(int argc, char **argv)
 {
   int               c;
   const char        *short_opt = "h:p:r:";
