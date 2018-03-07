@@ -8,10 +8,7 @@ int main(int argc, char *argv[])
   arguments.rep_port = options.rep_port;
   arguments.size = options.size;
 
-  pthread_t notifications;
-  pthread_create (&notifications, NULL, send_notification_to_all_clients, &arguments);
   app(&arguments);
-  pthread_join (notifications, NULL);
   return 0;
 }
 

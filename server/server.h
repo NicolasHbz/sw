@@ -16,28 +16,39 @@
 #define PUB_PORT "12345"
 #define REP_PORT "4242"
 #define MAP_SIZE 5
+#define NBR_OF_PLAYERS 2
 
 typedef struct {
-    char    *pub_port;
-    char    *rep_port;
-    int     size;
-}           Arguments;
+    char        *pub_port;
+    char        *rep_port;
+    int         size;
+}               Arguments;
 
 typedef struct {
-    char    *rep_port;
-    char    *pub_port;
-    int     size;
-}           Options;
+    char        *rep_port;
+    char        *pub_port;
+    int         size;
+}               Options;
 
 typedef struct
 {
-  char      *command;
-  void      (*func)();
-}           Command;
+    char        *command;
+    void        (*func)();
+}               CommandList;
+
+typedef struct {
+    char        *command;
+    char        *data; 
+}               Command;
+
+typedef struct {
+    char        *name;
+    zframe_t    *identity;  
+}               PlayerList;
 
 int app(Arguments *arguments);
 void *send_notification_to_all_clients (Arguments *args);
 Options argument_parsing(int argc, char **argv);
-char *get_command(zframe_t *input);
+Command get_command_and_data(zframe_t *input);
 
 #endif

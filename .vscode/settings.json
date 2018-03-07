@@ -6,6 +6,7 @@
         "memory": "c",
         "queue": "c",
         "utility": "c",
-        "vector": "c"
+        "vector": "c",
+        "iterator": "c"
     }
 }

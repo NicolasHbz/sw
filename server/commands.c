@@ -1,8 +1,10 @@
 #include "server.h"
 
-char    *get_command(zframe_t *input) {
-  char  *command;
-  int   i;
+Command   get_command_and_data(zframe_t *input) {
+  Command command_and_data;
+  char    *command;
+  char    *data;
+  int     i;
 
   char *content = zframe_strdup(input);
   command = malloc(sizeof(content));
@@ -10,5 +12,9 @@ char    *get_command(zframe_t *input) {
     command[i] = content[i];
   }
   command[i] = '\0';
-  return command;
+  data = strchr(content, '|');
+  memmove(data, data + 1, strlen(data));
+  command_and_data.command = command;
+  command_and_data.data = data;
+  return command_and_data;
 }
